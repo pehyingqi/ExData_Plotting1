@@ -1,0 +1,10 @@
+## reading data
+library(lubridate)
+dat<- read.table("household_power_consumption.txt",sep=";", header = TRUE, na.strings = "?")
+dat$datetime<-dmy_hms(paste(dat$Date, dat$Time))
+newdat <- subset(dat, datetime >= ymd("2007-02-01") & datetime < ymd("2007-02-03"))
+
+## plot1
+png(filename = "plot1.png", width = 480, height = 480, units = "px")
+hist(newdat$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
+dev.off()
